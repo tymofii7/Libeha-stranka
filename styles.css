@@ -111,7 +111,7 @@ h1, h2, h3, p { margin-top: 0; }
 .product-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px; }
 .product-card { min-width: 0; overflow: hidden; border: 1px solid #28292a; background: var(--bg-soft); transition: border-color 180ms ease,transform 180ms ease; }
 .product-card:hover { transform: translateY(-3px); border-color: #494235; }
-.product-visual { position: relative; display: grid; height: 230px; overflow: hidden; place-items: center; }
+.product-visual { position: relative; display: block; aspect-ratio: 2.28; overflow: hidden; background: #e8e8e4; }
 .visual-light { background: radial-gradient(ellipse at 50% 56%,#fff 0%,#f5f5f3 54%,#e8e8e4 100%); }
 .visual-dark { background: radial-gradient(ellipse at 50% 60%,#292b2a 0%,#1b1d1d 56%,#131515 100%); }
 .visual-photo { background: linear-gradient(135deg,rgba(225,222,209,.92),rgba(182,180,169,.85)),repeating-linear-gradient(45deg,#ccc 0 1px,transparent 1px 5px); }
@@ -120,9 +120,11 @@ h1, h2, h3, p { margin-top: 0; }
 .availability i, .product-stock i { width: 5px; height: 5px; border-radius: 50%; background: #80a878; }
 .availability-order i { background: var(--gold); }
 .availability-order { color: #e4d7b1; }
-.frame-art { width: 90%; max-height: 85%; overflow: visible; filter: drop-shadow(0 13px 10px rgba(0,0,0,.12)); transition: transform 220ms ease; }
-.product-card:hover .frame-art { transform: scale(1.035); }
-.frame-art-dark { filter: drop-shadow(0 13px 11px rgba(0,0,0,.3)); }
+.frame-photo { position: absolute; width: 216.36%; max-width: none; height: auto; pointer-events: none; user-select: none; }
+.frame-photo-rider { top: -256%; left: -6.17%; }
+.frame-photo-urban { top: -256%; left: -109.88%; }
+.frame-photo-custom { top: -433%; left: -6.17%; }
+.frame-photo-pro { top: -433%; left: -109.88%; }
 .visual-caption { position: absolute; right: 14px; bottom: 11px; color: rgba(24,25,24,.45); font-size: 7px; font-weight: 600; letter-spacing: 1.4px; }
 .visual-dark .visual-caption { color: rgba(239,237,231,.45); }
 .product-info { padding: 15px 17px 16px; }
@@ -247,7 +249,7 @@ h1, h2, h3, p { margin-top: 0; }
   .section-heading h2 { font-size: 29px; }
   .catalog-link { max-width: 115px; justify-content: flex-end; margin-top: 29px; text-align: right; }
   .product-grid { grid-template-columns: 1fr; gap: 14px; }
-  .product-visual { height: clamp(190px,57vw,270px); }
+  .product-visual { aspect-ratio: 2.28; }
   .product-info { padding: 14px 14px 13px; }
   .product-title-row h3 { font-size: 17px; }
   .benefits-inner { grid-template-columns: 1fr; padding: 12px 0; }
