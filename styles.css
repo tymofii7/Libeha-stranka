@@ -169,7 +169,7 @@ h1, h2, h3, p { margin-top: 0; }
 .verified { color: #89877f; font-size: 6px; letter-spacing: .8px; }
 
 .custom-cta { position: relative; display: flex; min-height: 310px; align-items: center; overflow: hidden; padding: 45px max(10vw,calc((100vw - 1180px) / 2)); isolation: isolate; background: #20201e; }
-.cta-image { position: absolute; z-index: -2; inset: 0; background: linear-gradient(90deg,rgba(13,14,14,.97) 0%,rgba(13,14,14,.79) 48%,rgba(13,14,14,.3) 100%),linear-gradient(0deg,rgba(12,13,13,.52),rgba(12,13,13,.12)),url("https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=2000&q=85") center 48% / cover,#282824; }
+.cta-image { position: absolute; z-index: -2; inset: 0; background: linear-gradient(90deg,rgba(13,14,14,.97) 0%,rgba(13,14,14,.79) 48%,rgba(13,14,14,.3) 100%),linear-gradient(0deg,rgba(12,13,13,.52),rgba(12,13,13,.12)),url("docs/dolna nova.png") center 48% / cover,#282824; }
 .custom-cta::after { position: absolute; z-index: -1; top: 0; right: 10%; width: 1px; height: 100%; background: linear-gradient(transparent,rgba(201,169,87,.35),transparent); content: ""; }
 .cta-content { max-width: 490px; }
 .cta-content .eyebrow { margin-bottom: 11px; }
