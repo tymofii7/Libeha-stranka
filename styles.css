@@ -121,10 +121,7 @@ h1, h2, h3, p { margin-top: 0; }
 .availability-order i { background: var(--gold); }
 .availability-order { color: #e4d7b1; }
 .frame-photo { position: absolute; width: 216.36%; max-width: none; height: auto; pointer-events: none; user-select: none; }
-.frame-photo-rider { top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; }
-.frame-photo-urban { top: -256%; left: -109.88%; }
-.frame-photo-custom { top: -433%; left: -6.17%; }
-.frame-photo-pro { top: -433%; left: -109.88%; }
+.frame-photo-rider, .frame-photo-urban, .frame-photo-custom, .frame-photo-pro { top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; }
 .visual-caption { position: absolute; right: 14px; bottom: 11px; color: rgba(24,25,24,.45); font-size: 7px; font-weight: 600; letter-spacing: 1.4px; }
 .visual-dark .visual-caption { color: rgba(239,237,231,.45); }
 .product-info { padding: 15px 17px 16px; }
