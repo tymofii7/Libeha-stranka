@@ -74,7 +74,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   background:
     linear-gradient(90deg, rgba(10,11,12,.94) 0%, rgba(12,13,14,.78) 44%, rgba(10,11,12,.33) 100%),
     linear-gradient(0deg, rgba(10,11,12,.46), rgba(10,11,12,.1)),
-    url("https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=2200&q=85") center 52% / cover,
+    url("docs/horna.png") center 52% / cover,
     #202120;
 }
 
