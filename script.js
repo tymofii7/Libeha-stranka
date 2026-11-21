@@ -233,8 +233,25 @@ if (configForm) {
     "24": { reach: 400, wheelbase: 990, headAngle: 70 },
   };
   let configurationMode = "standard";
+  let customGeometry = {
+    reach: reach.value,
+    wheelbase: wheelbase.value,
+    headAngle: headAngle.value,
+  };
 
   const setConfigurationMode = (mode) => {
+    if (configurationMode === "custom" && mode === "standard") {
+      customGeometry = {
+        reach: reach.value,
+        wheelbase: wheelbase.value,
+        headAngle: headAngle.value,
+      };
+    } else if (configurationMode === "standard" && mode === "custom") {
+      reach.value = customGeometry.reach;
+      wheelbase.value = customGeometry.wheelbase;
+      headAngle.value = customGeometry.headAngle;
+    }
+
     configurationMode = mode;
     const isCustom = mode === "custom";
     standardTab.classList.toggle("is-active", !isCustom);
@@ -269,6 +286,11 @@ if (configForm) {
         reach.value = String(savedReach);
         wheelbase.value = String(savedWheelbase);
         headAngle.value = String(savedHeadAngle);
+        customGeometry = {
+          reach: reach.value,
+          wheelbase: wheelbase.value,
+          headAngle: headAngle.value,
+        };
         document.querySelector(`input[name="config-finish"][value="${saved.finish}"]`).checked = true;
         setConfigurationMode(savedMode);
       } else {
