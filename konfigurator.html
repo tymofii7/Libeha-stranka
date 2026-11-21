@@ -44,11 +44,14 @@
         <div class="geometry-canvas">
           <svg id="frame-preview" viewBox="0 0 480 300" role="img" aria-labelledby="frame-title frame-desc">
             <title id="frame-title">Náhľad geometrie titánového rámu</title>
-            <desc id="frame-desc">Schematický bočný pohľad na rám bicykla. Rozmery sa aktualizujú podľa nastavení.</desc>
+            <desc id="frame-desc">Schematický bočný pohľad na rám bicykla. Dosah, rázvor kolies a uhol hlavovej trubky sa aktualizujú podľa nastavení.</desc>
             <circle class="preview-wheel" id="rear-wheel" cx="70" cy="210" r="53"/>
             <circle class="preview-wheel" id="front-wheel" cx="350" cy="210" r="53"/>
             <circle class="preview-hub" id="rear-hub" cx="70" cy="210" r="4"/>
             <circle class="preview-hub" id="front-hub" cx="350" cy="210" r="4"/>
+            <line class="preview-measure" id="wheelbase-measure" x1="70" y1="273" x2="361" y2="273"/>
+            <line class="preview-measure-tick" id="wheelbase-start-tick" x1="70" y1="268" x2="70" y2="278"/>
+            <line class="preview-measure-tick" id="wheelbase-end-tick" x1="361" y1="268" x2="361" y2="278"/>
             <g class="preview-frame">
               <line id="seat-tube" x1="190" y1="70" x2="170" y2="205"/>
               <line id="top-tube" x1="190" y1="70" x2="310" y2="70"/>
@@ -60,39 +63,55 @@
             </g>
             <circle class="preview-bb" cx="170" cy="205" r="7"/>
             <text id="svg-reach-label" x="250" y="52">415 mm reach</text>
-            <text id="svg-chain-label" x="93" y="238">395 mm zadná stavba</text>
+            <text id="svg-wheelbase-label" x="150" y="292">1040 mm rázvor</text>
           </svg>
         </div>
         <div class="preview-legend"><span><i></i> Titán 3AL-2.5V</span><span>Vyrobené na Slovensku</span></div>
       </div>
 
       <form class="config-controls" id="config-form">
-        <div class="config-heading"><div><p class="eyebrow"><span></span> TVOJA ZOSTAVA</p><h2>Vyber si <em>parametre</em></h2></div><span class="step-count">01 — 04</span></div>
+        <div class="config-heading"><div><p class="eyebrow"><span></span> TVOJA ZOSTAVA</p><h2>Vyber si <em>parametre</em></h2></div><span class="step-count">01 — 03</span></div>
         <label class="config-field" for="wheel-size">Typ a veľkosť kolies
           <select id="wheel-size" name="wheel-size">
             <option value="26">26&quot; Dirt Jump</option>
             <option value="24">24&quot; Street (+50 €)</option>
           </select>
         </label>
-        <label class="config-field range-field" for="reach">Dosah rámu <output id="reach-value" for="reach">415 mm</output>
-          <input id="reach" name="reach" type="range" min="400" max="430" value="415">
-          <span class="range-scale"><span>400 mm</span><span>430 mm</span></span>
-        </label>
-        <label class="config-field range-field" for="chainstay">Dĺžka zadnej stavby <output id="chainstay-value" for="chainstay">395 mm</output>
-          <input id="chainstay" name="chainstay" type="range" min="380" max="410" value="395">
-          <span class="range-scale"><span>380 mm</span><span>410 mm</span></span>
-        </label>
-        <label class="config-field range-field" for="head-angle">Uhol hlavovej trubky <output id="head-angle-value" for="head-angle">69°</output>
-          <input id="head-angle" name="head-angle" type="range" min="68" max="71" value="69">
-          <span class="range-scale"><span>68° — stabilnejší</span><span>71° — obratnejší</span></span>
-        </label>
+        <div class="config-tabs" role="tablist" aria-label="Režim konfigurácie">
+          <button class="config-tab is-active" id="config-tab-standard" type="button" role="tab" aria-selected="true" aria-controls="config-panel-standard">Štandardná geometria</button>
+          <button class="config-tab" id="config-tab-custom" type="button" role="tab" aria-selected="false" aria-controls="config-panel-custom">Vlastný dizajn</button>
+        </div>
+        <section class="config-panel config-preset" id="config-panel-standard" role="tabpanel" aria-labelledby="config-tab-standard">
+          <p id="preset-name">Štandardná geometria 26&quot; Dirt Jump</p>
+          <dl>
+            <div><dt>Dosah</dt><dd id="preset-reach">415 mm</dd></div>
+            <div><dt>Rázvor kolies</dt><dd id="preset-wheelbase">1 040 mm</dd></div>
+            <div><dt>Uhol hlavovej trubky</dt><dd id="preset-head-angle">69°</dd></div>
+          </dl>
+          <small>Prepnutím na vlastný dizajn môžeš upraviť rozmery rámu.</small>
+        </section>
+        <section class="config-panel config-custom-fields" id="config-panel-custom" role="tabpanel" aria-labelledby="config-tab-custom" hidden>
+          <p class="config-panel-intro">Uprav geometriu a sleduj zmeny v živom náhľade.</p>
+          <label class="config-field range-field" for="reach">Dosah rámu <output id="reach-value" for="reach">415 mm</output>
+            <input id="reach" name="reach" type="range" min="400" max="430" value="415">
+            <span class="range-scale"><span>400 mm</span><span>430 mm</span></span>
+          </label>
+          <label class="config-field range-field" for="wheelbase">Rázvor kolies <output id="wheelbase-value" for="wheelbase">1 040 mm</output>
+            <input id="wheelbase" name="wheelbase" type="range" min="960" max="1080" value="1040">
+            <span class="range-scale"><span>960 mm</span><span>1 080 mm</span></span>
+          </label>
+          <label class="config-field range-field" for="head-angle">Uhol hlavovej trubky <output id="head-angle-value" for="head-angle">69°</output>
+            <input id="head-angle" name="head-angle" type="range" min="68" max="71" value="69">
+            <span class="range-scale"><span>68° — stabilnejší</span><span>71° — obratnejší</span></span>
+          </label>
+        </section>
         <fieldset class="config-field config-finish">
           <legend>Povrchová úprava</legend>
           <label><input type="radio" name="config-finish" value="natural" data-price="0" checked><span class="finish-swatch finish-natural"></span><span>Prírodný titán<small>v cene</small></span></label>
           <label><input type="radio" name="config-finish" value="dark" data-price="120"><span class="finish-swatch finish-dark"></span><span>Tmavý titán<small>+120 €</small></span></label>
         </fieldset>
-        <div class="config-total"><span>Orientačná cena <small>vrátane DPH</small></span><b id="config-price">1 500 <small>€</small></b></div>
-        <button class="button button-outline config-save" type="button">Uložiť zostavu</button>
+        <div class="config-total"><span>Orientačná cena <small id="config-price-note">26&quot; Dirt Jump · prírodný titán</small></span><b id="config-price">1 500 <small>€</small></b></div>
+        <button class="button button-outline config-save" type="button">Uložiť hlavnú zostavu</button>
         <button class="button button-gold config-add add-to-cart" type="button" data-product="Custom DJ Frame" data-price="1500">Pridať zostavu do košíka <span aria-hidden="true">↗</span></button>
         <p class="config-disclaimer">Cena je orientačná. Po odoslaní zostavy potvrdíme detaily a termín výroby.</p>
       </form>

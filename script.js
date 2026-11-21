@@ -219,31 +219,58 @@ const configForm = document.querySelector("#config-form");
 if (configForm) {
   const wheelSize = document.querySelector("#wheel-size");
   const reach = document.querySelector("#reach");
-  const chainstay = document.querySelector("#chainstay");
+  const wheelbase = document.querySelector("#wheelbase");
   const headAngle = document.querySelector("#head-angle");
+  const standardTab = document.querySelector("#config-tab-standard");
+  const customTab = document.querySelector("#config-tab-custom");
+  const standardPanel = document.querySelector("#config-panel-standard");
+  const customPanel = document.querySelector("#config-panel-custom");
   const currency = new Intl.NumberFormat("sk-SK");
   const configAddButton = document.querySelector(".config-add");
   const frameStroke = document.querySelectorAll(".preview-frame line");
+  const standardGeometry = {
+    "26": { reach: 415, wheelbase: 1040, headAngle: 69 },
+    "24": { reach: 400, wheelbase: 990, headAngle: 70 },
+  };
+  let configurationMode = "standard";
+
+  const setConfigurationMode = (mode) => {
+    configurationMode = mode;
+    const isCustom = mode === "custom";
+    standardTab.classList.toggle("is-active", !isCustom);
+    customTab.classList.toggle("is-active", isCustom);
+    standardTab.setAttribute("aria-selected", String(!isCustom));
+    customTab.setAttribute("aria-selected", String(isCustom));
+    standardPanel.hidden = isCustom;
+    customPanel.hidden = !isCustom;
+    reach.disabled = !isCustom;
+    wheelbase.disabled = !isCustom;
+    headAngle.disabled = !isCustom;
+  };
+  setConfigurationMode(configurationMode);
 
   try {
-    const storedConfiguration = window.sessionStorage.getItem("tdj-frame-config");
+    const storedConfiguration = window.localStorage.getItem("tdj-frame-config");
     if (storedConfiguration) {
       const saved = JSON.parse(storedConfiguration);
       const savedReach = Number(saved?.reach);
-      const savedChainstay = Number(saved?.chainstay);
+      const savedWheelbase = Number(saved?.wheelbase ?? standardGeometry[String(saved?.wheelSize)]?.wheelbase);
       const savedHeadAngle = Number(saved?.headAngle);
+      const savedMode = saved?.mode ?? "standard";
       const validConfiguration = saved
         && ["24", "26"].includes(String(saved.wheelSize))
         && Number.isInteger(savedReach) && savedReach >= 400 && savedReach <= 430
-        && Number.isInteger(savedChainstay) && savedChainstay >= 380 && savedChainstay <= 410
+        && Number.isInteger(savedWheelbase) && savedWheelbase >= 960 && savedWheelbase <= 1080
         && Number.isInteger(savedHeadAngle) && savedHeadAngle >= 68 && savedHeadAngle <= 71
+        && ["standard", "custom"].includes(savedMode)
         && ["natural", "dark"].includes(saved.finish);
       if (validConfiguration) {
         wheelSize.value = String(saved.wheelSize);
         reach.value = String(savedReach);
-        chainstay.value = String(savedChainstay);
+        wheelbase.value = String(savedWheelbase);
         headAngle.value = String(savedHeadAngle);
         document.querySelector(`input[name="config-finish"][value="${saved.finish}"]`).checked = true;
+        setConfigurationMode(savedMode);
       } else {
         showToast("Uložená zostava nemá platné nastavenia.");
       }
@@ -253,25 +280,40 @@ if (configForm) {
   }
 
   const updateConfiguration = () => {
+    const preset = standardGeometry[wheelSize.value];
+    if (configurationMode === "standard") {
+      reach.value = String(preset.reach);
+      wheelbase.value = String(preset.wheelbase);
+      headAngle.value = String(preset.headAngle);
+    }
+
     const reachValue = Number(reach.value);
-    const chainstayValue = Number(chainstay.value);
+    const wheelbaseValue = Number(wheelbase.value);
     const angleValue = Number(headAngle.value);
-    const finishExtra = Number(document.querySelector('input[name="config-finish"]:checked').dataset.price);
+    const selectedFinish = document.querySelector('input[name="config-finish"]:checked');
+    const finishExtra = Number(selectedFinish.dataset.price);
+    const finishName = selectedFinish.value === "dark" ? "tmavý titán" : "prírodný titán";
     const basePrice = 1500 + (wheelSize.value === "24" ? 50 : 0);
     const price = basePrice + finishExtra;
+    const sizeName = wheelSize.value === "24" ? "24\" Street" : "26\" Dirt Jump";
 
     document.querySelector("#reach-value").textContent = `${reachValue} mm`;
-    document.querySelector("#chainstay-value").textContent = `${chainstayValue} mm`;
+    document.querySelector("#wheelbase-value").textContent = `${currency.format(wheelbaseValue)} mm`;
     document.querySelector("#head-angle-value").textContent = `${angleValue}°`;
-    document.querySelector("#preview-size").textContent = `${wheelSize.value}" ${wheelSize.value === "24" ? "Street" : "DJ"}`;
+    document.querySelector("#preset-name").textContent = `Štandardná geometria ${sizeName}`;
+    document.querySelector("#preset-reach").textContent = `${preset.reach} mm`;
+    document.querySelector("#preset-wheelbase").textContent = `${currency.format(preset.wheelbase)} mm`;
+    document.querySelector("#preset-head-angle").textContent = `${preset.headAngle}°`;
+    document.querySelector("#preview-size").textContent = sizeName;
+    document.querySelector("#config-price-note").textContent = `vrátane DPH · ${sizeName} · ${finishName}`;
     document.querySelector("#config-price").innerHTML = `${currency.format(price)} <small>€</small>`;
     configAddButton.dataset.price = String(price);
-    configAddButton.dataset.product = `Custom ${wheelSize.value}" ${wheelSize.value === "24" ? "Street" : "DJ"} Frame`;
+    configAddButton.dataset.product = `Custom ${sizeName} Frame · ${configurationMode === "custom" ? "vlastná geometria" : "štandardná geometria"} · ${finishName}`;
 
-    const rearX = 56 + (chainstayValue - 380) * 1.25;
-    const headX = 280 + (reachValue - 400) * 2;
+    const rearX = 70;
+    const frontX = rearX + wheelbaseValue * 0.28;
+    const headX = 285 + (reachValue - 415) * 0.8;
     const headBottomX = headX + Math.tan((90 - angleValue) * Math.PI / 180) * 75;
-    const frontX = headBottomX + 30;
     const wheelRadius = wheelSize.value === "24" ? 45 : 53;
     const framePoints = {
       "rear-wheel": [rearX, 210],
@@ -302,24 +344,40 @@ if (configForm) {
     });
     document.querySelector("#svg-reach-label").setAttribute("x", String((190 + headX) / 2 - 25));
     document.querySelector("#svg-reach-label").textContent = `${reachValue} mm reach`;
-    document.querySelector("#svg-chain-label").setAttribute("x", String(rearX + 5));
-    document.querySelector("#svg-chain-label").textContent = `${chainstayValue} mm zadná stavba`;
-    frameStroke.forEach((line) => line.setAttribute("stroke", document.querySelector('input[name="config-finish"]:checked').value === "dark" ? "#77746c" : "#b9a879"));
+    const wheelbaseLabelX = (rearX + frontX) / 2 - 35;
+    document.querySelector("#wheelbase-measure").setAttribute("x1", String(rearX));
+    document.querySelector("#wheelbase-measure").setAttribute("x2", String(frontX));
+    document.querySelector("#wheelbase-start-tick").setAttribute("x1", String(rearX));
+    document.querySelector("#wheelbase-start-tick").setAttribute("x2", String(rearX));
+    document.querySelector("#wheelbase-end-tick").setAttribute("x1", String(frontX));
+    document.querySelector("#wheelbase-end-tick").setAttribute("x2", String(frontX));
+    document.querySelector("#svg-wheelbase-label").setAttribute("x", String(wheelbaseLabelX));
+    document.querySelector("#svg-wheelbase-label").textContent = `${currency.format(wheelbaseValue)} mm rázvor`;
+    frameStroke.forEach((line) => line.setAttribute("stroke", selectedFinish.value === "dark" ? "#77746c" : "#b9a879"));
   };
 
   configForm.addEventListener("input", updateConfiguration);
   configForm.addEventListener("change", updateConfiguration);
+  standardTab.addEventListener("click", () => {
+    setConfigurationMode("standard");
+    updateConfiguration();
+  });
+  customTab.addEventListener("click", () => {
+    setConfigurationMode("custom");
+    updateConfiguration();
+  });
   document.querySelector(".config-save").addEventListener("click", () => {
     const savedConfiguration = {
+      mode: configurationMode,
       wheelSize: wheelSize.value,
       reach: reach.value,
-      chainstay: chainstay.value,
+      wheelbase: wheelbase.value,
       headAngle: headAngle.value,
       finish: document.querySelector('input[name="config-finish"]:checked').value,
     };
     try {
-      window.sessionStorage.setItem("tdj-frame-config", JSON.stringify(savedConfiguration));
-      showToast("Zostava bola uložená v tomto prehliadači.");
+      window.localStorage.setItem("tdj-frame-config", JSON.stringify(savedConfiguration));
+      showToast("Hlavná zostava bola uložená v tomto prehliadači.");
     } catch {
       showToast("Zostavu sa nepodarilo uložiť. Skúste to znova.");
     }
