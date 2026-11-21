@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101112">
+  <meta name="description" content="Navrhnite si titánový rám Tdj podľa vlastných rozmerov a štýlu jazdy.">
+  <title>Konfigurátor titánového rámu — Tdj</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html#domov" aria-label="Tdj — domov">
+      <span class="brand-mark">T<span>d</span>j</span>
+      <span class="brand-caption">TITÁNOVÉ RÁMY</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Otvoriť navigáciu">
+      <span></span><span></span>
+    </button>
+    <nav class="main-nav" id="main-nav" aria-label="Hlavná navigácia">
+      <a href="index.html#ramy">Rámy</a>
+      <a href="index.html#recenzie">Recenzie</a>
+      <a href="index.html#o-nas">O nás</a>
+      <a href="index.html#kontakt">Kontakt</a>
+    </nav>
+    <button class="cart-button" type="button" aria-label="Košík, 0 položiek">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.4L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+      <span class="cart-label">Košík</span><span class="cart-count">0</span>
+    </button>
+  </header>
+
+  <main class="config-page">
+    <section class="config-intro section-wrap">
+      <nav class="breadcrumbs" aria-label="Navigácia v omrvinkách"><a href="index.html">Domov</a><span aria-hidden="true">/</span><span>Konfigurátor</span></nav>
+      <p class="eyebrow"><span></span> TVOJA JAZDA. TVOJE PRAVIDLÁ.</p>
+      <h1>Konfigurátor<br><em>titánového rámu.</em></h1>
+      <p>Uprav si základnú geometriu a povrch podľa svojho štýlu. Náhľad aj orientačná cena sa menia spolu s tvojím výberom.</p>
+    </section>
+
+    <section class="config-workspace section-wrap" aria-label="Nastavenie rámu">
+      <div class="geometry-preview">
+        <div class="preview-topline"><span><i></i> ŽIVÝ NÁHĽAD GEOMETRIE</span><span id="preview-size">26&quot; DJ</span></div>
+        <div class="geometry-canvas">
+          <svg id="frame-preview" viewBox="0 0 480 300" role="img" aria-labelledby="frame-title frame-desc">
+            <title id="frame-title">Náhľad geometrie titánového rámu</title>
+            <desc id="frame-desc">Schematický bočný pohľad na rám bicykla. Rozmery sa aktualizujú podľa nastavení.</desc>
+            <circle class="preview-wheel" id="rear-wheel" cx="70" cy="210" r="53"/>
+            <circle class="preview-wheel" id="front-wheel" cx="350" cy="210" r="53"/>
+            <circle class="preview-hub" id="rear-hub" cx="70" cy="210" r="4"/>
+            <circle class="preview-hub" id="front-hub" cx="350" cy="210" r="4"/>
+            <g class="preview-frame">
+              <line id="seat-tube" x1="190" y1="70" x2="170" y2="205"/>
+              <line id="top-tube" x1="190" y1="70" x2="310" y2="70"/>
+              <line id="down-tube" x1="170" y1="205" x2="338" y2="145"/>
+              <line id="head-tube" x1="310" y1="70" x2="338" y2="145"/>
+              <line id="chainstay" x1="70" y1="210" x2="170" y2="205"/>
+              <line id="seatstay" x1="70" y1="210" x2="190" y2="70"/>
+              <line id="fork" x1="338" y1="145" x2="350" y2="210"/>
+            </g>
+            <circle class="preview-bb" cx="170" cy="205" r="7"/>
+            <text id="svg-reach-label" x="250" y="52">415 mm reach</text>
+            <text id="svg-chain-label" x="93" y="238">395 mm zadná stavba</text>
+          </svg>
+        </div>
+        <div class="preview-legend"><span><i></i> Titán 3AL-2.5V</span><span>Vyrobené na Slovensku</span></div>
+      </div>
+
+      <form class="config-controls" id="config-form">
+        <div class="config-heading"><div><p class="eyebrow"><span></span> TVOJA ZOSTAVA</p><h2>Vyber si <em>parametre</em></h2></div><span class="step-count">01 — 04</span></div>
+        <label class="config-field" for="wheel-size">Typ a veľkosť kolies
+          <select id="wheel-size" name="wheel-size">
+            <option value="26">26&quot; Dirt Jump</option>
+            <option value="24">24&quot; Street (+50 €)</option>
+          </select>
+        </label>
+        <label class="config-field range-field" for="reach">Dosah rámu <output id="reach-value" for="reach">415 mm</output>
+          <input id="reach" name="reach" type="range" min="400" max="430" value="415">
+          <span class="range-scale"><span>400 mm</span><span>430 mm</span></span>
+        </label>
+        <label class="config-field range-field" for="chainstay">Dĺžka zadnej stavby <output id="chainstay-value" for="chainstay">395 mm</output>
+          <input id="chainstay" name="chainstay" type="range" min="380" max="410" value="395">
+          <span class="range-scale"><span>380 mm</span><span>410 mm</span></span>
+        </label>
+        <label class="config-field range-field" for="head-angle">Uhol hlavovej trubky <output id="head-angle-value" for="head-angle">69°</output>
+          <input id="head-angle" name="head-angle" type="range" min="68" max="71" value="69">
+          <span class="range-scale"><span>68° — stabilnejší</span><span>71° — obratnejší</span></span>
+        </label>
+        <fieldset class="config-field config-finish">
+          <legend>Povrchová úprava</legend>
+          <label><input type="radio" name="config-finish" value="natural" data-price="0" checked><span class="finish-swatch finish-natural"></span><span>Prírodný titán<small>v cene</small></span></label>
+          <label><input type="radio" name="config-finish" value="dark" data-price="120"><span class="finish-swatch finish-dark"></span><span>Tmavý titán<small>+120 €</small></span></label>
+        </fieldset>
+        <div class="config-total"><span>Orientačná cena <small>vrátane DPH</small></span><b id="config-price">1 500 <small>€</small></b></div>
+        <button class="button button-outline config-save" type="button">Uložiť zostavu</button>
+        <button class="button button-gold config-add add-to-cart" type="button" data-product="Custom DJ Frame" data-price="1500">Pridať zostavu do košíka <span aria-hidden="true">↗</span></button>
+        <p class="config-disclaimer">Cena je orientačná. Po odoslaní zostavy potvrdíme detaily a termín výroby.</p>
+      </form>
+    </section>
+
+    <section class="config-benefits benefits">
+      <div class="benefits-inner">
+        <article class="benefit"><span class="benefit-icon" aria-hidden="true">01</span><div><h3>Doživotná záruka</h3><p>Za kvalitou našich rámov si stojíme.</p></div></article>
+        <article class="benefit"><span class="benefit-icon" aria-hidden="true">02</span><div><h3>Geometria na mieru</h3><p>Každý rozmer upravíš podľa seba.</p></div></article>
+        <article class="benefit"><span class="benefit-icon" aria-hidden="true">03</span><div><h3>Vyrobené na Slovensku</h3><p>Lokálna výroba. Poctivé remeslo.</p></div></article>
+      </div>
+    </section>
+    <section class="config-bottom-cta">
+      <p class="eyebrow"><span></span> ZMENIL SI NÁZOR?</p>
+      <h2>Pozri si hotové <em>rámy.</em></h2>
+      <a class="button button-gold" href="index.html#ramy">Späť na katalóg <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="kontakt">
+    <div class="footer-main">
+      <div class="footer-about">
+        <a class="brand footer-brand" href="index.html#domov" aria-label="Tdj — domov"><span class="brand-mark">T<span>d</span>j</span><span class="brand-caption">TITÁNOVÉ RÁMY</span></a>
+        <p>Rámy pre jazdcov, ktorí sa neboja posúvať hranice. Navrhnuté a vyrobené na Slovensku.</p>
+        <div class="social-links" aria-label="Sociálne siete"><span aria-label="Instagram">ig</span><span aria-label="Facebook">f</span><span aria-label="YouTube">▶</span></div>
+      </div>
+      <div class="footer-column"><h3>NAVIGÁCIA</h3><a href="index.html#ramy">Naše rámy</a><a href="index.html#recenzie">Recenzie</a><a href="index.html#o-nas">O nás</a><a href="konfigurator.html">Konfigurátor</a></div>
+      <div class="footer-column"><h3>INFORMÁCIE</h3><a href="index.html#kontakt">Doprava a platba</a><a href="index.html#kontakt">Záruka a servis</a><a href="index.html#kontakt">Časté otázky</a><a href="index.html#kontakt">Obchodné podmienky</a></div>
+      <div class="footer-column footer-contact"><h3>KONTAKT</h3><p>Objednávky a B2B spolupráca</p><p>Kontaktné údaje doplníme.</p><form class="newsletter"><label for="newsletter-email">Novinky z dielne</label><div><input id="newsletter-email" type="email" placeholder="Váš e-mail" autocomplete="email" required><button type="submit" aria-label="Prihlásiť sa na odber">→</button></div></form></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Tdj. Všetky práva vyhradené.</span><span>Vyrobené s vášňou na Slovensku <i>♥</i></span><a href="index.html#domov">Späť hore ↑</a></div>
+  </footer>
+  <div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
