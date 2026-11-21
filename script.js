@@ -225,6 +225,10 @@ if (configForm) {
   const customTab = document.querySelector("#config-tab-custom");
   const standardPanel = document.querySelector("#config-panel-standard");
   const customPanel = document.querySelector("#config-panel-custom");
+  const geometryPreview = document.querySelector(".geometry-preview");
+  const previewColumn = document.querySelector(".config-preview-column");
+  const customPanelIntro = customPanel.querySelector(".config-panel-intro");
+  const mobileLayout = window.matchMedia("(max-width: 800px)");
   const currency = new Intl.NumberFormat("sk-SK");
   const configAddButton = document.querySelector(".config-add");
   const frameStroke = document.querySelectorAll(".preview-frame line");
@@ -232,6 +236,15 @@ if (configForm) {
     "26": { reach: 415, wheelbase: 1040, headAngle: 69 },
     "24": { reach: 400, wheelbase: 990, headAngle: 70 },
   };
+  const positionGeometryPreview = () => {
+    if (mobileLayout.matches) {
+      customPanelIntro.before(geometryPreview);
+    } else {
+      previewColumn.prepend(geometryPreview);
+    }
+  };
+  positionGeometryPreview();
+  mobileLayout.addEventListener("change", positionGeometryPreview);
   let configurationMode = "standard";
   let customGeometry = {
     reach: reach.value,
