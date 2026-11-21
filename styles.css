@@ -358,6 +358,7 @@ h1, h2, h3, p { margin-top: 0; }
 .config-intro h1 em { color: var(--gold-light); font-weight: 500; }
 .config-intro > p:last-child { max-width: 500px; margin-bottom: 0; color: #a7a69f; font-size: 11px; line-height: 1.8; }
 .config-workspace { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(340px,.85fr); gap: 24px; padding-bottom: 62px; }
+.config-preview-column { display: flex; min-width: 0; flex-direction: column; gap: 14px; }
 .geometry-preview, .config-controls { min-width: 0; border: 1px solid #2d2e2e; background: #171819; }
 .preview-topline { display: flex; min-height: 43px; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 1px solid #2d2e2e; color: #aaa89f; font-size: 8px; font-weight: 600; letter-spacing: 1px; }
 .preview-topline > span:first-child { display: inline-flex; align-items: center; gap: 7px; }

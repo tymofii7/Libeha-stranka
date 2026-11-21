@@ -39,34 +39,57 @@
     </section>
 
     <section class="config-workspace section-wrap" aria-label="Nastavenie rámu">
-      <div class="geometry-preview">
-        <div class="preview-topline"><span><i></i> ŽIVÝ NÁHĽAD GEOMETRIE</span><span id="preview-size">26&quot; DJ</span></div>
-        <div class="geometry-canvas">
-          <svg id="frame-preview" viewBox="0 0 480 300" role="img" aria-labelledby="frame-title frame-desc">
-            <title id="frame-title">Náhľad geometrie titánového rámu</title>
-            <desc id="frame-desc">Schematický bočný pohľad na rám bicykla. Dosah, rázvor kolies a uhol hlavovej trubky sa aktualizujú podľa nastavení.</desc>
-            <circle class="preview-wheel" id="rear-wheel" cx="70" cy="210" r="53"/>
-            <circle class="preview-wheel" id="front-wheel" cx="350" cy="210" r="53"/>
-            <circle class="preview-hub" id="rear-hub" cx="70" cy="210" r="4"/>
-            <circle class="preview-hub" id="front-hub" cx="350" cy="210" r="4"/>
-            <line class="preview-measure" id="wheelbase-measure" x1="70" y1="273" x2="361" y2="273"/>
-            <line class="preview-measure-tick" id="wheelbase-start-tick" x1="70" y1="268" x2="70" y2="278"/>
-            <line class="preview-measure-tick" id="wheelbase-end-tick" x1="361" y1="268" x2="361" y2="278"/>
-            <g class="preview-frame">
-              <line id="seat-tube" x1="190" y1="70" x2="170" y2="205"/>
-              <line id="top-tube" x1="190" y1="70" x2="310" y2="70"/>
-              <line id="down-tube" x1="170" y1="205" x2="338" y2="145"/>
-              <line id="head-tube" x1="310" y1="70" x2="338" y2="145"/>
-              <line id="chainstay" x1="70" y1="210" x2="170" y2="205"/>
-              <line id="seatstay" x1="70" y1="210" x2="190" y2="70"/>
-              <line id="fork" x1="338" y1="145" x2="350" y2="210"/>
-            </g>
-            <circle class="preview-bb" cx="170" cy="205" r="7"/>
-            <text id="svg-reach-label" x="250" y="52">415 mm reach</text>
-            <text id="svg-wheelbase-label" x="150" y="292">1040 mm rázvor</text>
-          </svg>
+      <div class="config-preview-column">
+        <div class="geometry-preview">
+          <div class="preview-topline"><span><i></i> ŽIVÝ NÁHĽAD GEOMETRIE</span><span id="preview-size">26&quot; DJ</span></div>
+          <div class="geometry-canvas">
+            <svg id="frame-preview" viewBox="0 0 480 300" role="img" aria-labelledby="frame-title frame-desc">
+              <title id="frame-title">Náhľad geometrie titánového rámu</title>
+              <desc id="frame-desc">Schematický bočný pohľad na rám bicykla. Dosah, rázvor kolies a uhol hlavovej trubky sa aktualizujú podľa nastavení.</desc>
+              <circle class="preview-wheel" id="rear-wheel" cx="70" cy="210" r="53"/>
+              <circle class="preview-wheel" id="front-wheel" cx="350" cy="210" r="53"/>
+              <circle class="preview-hub" id="rear-hub" cx="70" cy="210" r="4"/>
+              <circle class="preview-hub" id="front-hub" cx="350" cy="210" r="4"/>
+              <line class="preview-measure" id="wheelbase-measure" x1="70" y1="273" x2="361" y2="273"/>
+              <line class="preview-measure-tick" id="wheelbase-start-tick" x1="70" y1="268" x2="70" y2="278"/>
+              <line class="preview-measure-tick" id="wheelbase-end-tick" x1="361" y1="268" x2="361" y2="278"/>
+              <g class="preview-frame">
+                <line id="seat-tube" x1="190" y1="70" x2="170" y2="205"/>
+                <line id="top-tube" x1="190" y1="70" x2="310" y2="70"/>
+                <line id="down-tube" x1="170" y1="205" x2="338" y2="145"/>
+                <line id="head-tube" x1="310" y1="70" x2="338" y2="145"/>
+                <line id="chainstay" x1="70" y1="210" x2="170" y2="205"/>
+                <line id="seatstay" x1="70" y1="210" x2="190" y2="70"/>
+                <line id="fork" x1="338" y1="145" x2="350" y2="210"/>
+              </g>
+              <circle class="preview-bb" cx="170" cy="205" r="7"/>
+              <text id="svg-reach-label" x="250" y="52">415 mm reach</text>
+              <text id="svg-wheelbase-label" x="150" y="292">1040 mm rázvor</text>
+            </svg>
+          </div>
+          <div class="preview-legend"><span><i></i> Titán 3AL-2.5V</span><span>Vyrobené na Slovensku</span></div>
         </div>
-        <div class="preview-legend"><span><i></i> Titán 3AL-2.5V</span><span>Vyrobené na Slovensku</span></div>
+        <div class="spec-grid" aria-label="Technické parametre rámu">
+          <div><span>Materiál</span><b>3AL-2.5V titán</b></div>
+          <div><span>Určenie</span><b>Dirt jump</b></div>
+          <div><span>Veľkosť kolies</span><b>26&quot;</b></div>
+          <div><span>Rám</span><b>Ručne zváraný</b></div>
+          <div><span>Záruka</span><b>Doživotná</b></div>
+          <div><span>Pôvod</span><b>Vyrobené na Slovensku</b></div>
+          <div><span>Odporúčaný zdvih vidlice</span><b>80-120mm</b></div>
+          <div><span>Uchytenie kotúča</span><b>IS-2000</b></div>
+          <div><span>Max. veľkosť kotúča</span><b>185mm</b></div>
+          <div><span>Nastavenie pätiek</span><b>tensioners</b></div>
+          <div><span>Hlavová trubka</span><b>ZS44/ZS56</b></div>
+          <div><span>Kompatibilné vidlice</span><b>Standard 1-1/8&quot; or tapered 1.5 - 1-1/8&quot;</b></div>
+          <div><span>Rozstup náboja</span><b>10x135mm, horizontal, suggested bolt-on hubs</b></div>
+          <div><span>Stredové zloženie</span><b>threaded BSA 73mm</b></div>
+          <div><span>Max. prevodník</span><b>34t</b></div>
+          <div><span>Sedlovka</span><b>31.6mm</b></div>
+          <div><span>Objímka sedlovky</span><b>36mm (included)</b></div>
+          <div><span>Max. rozmer plášťa</span><b>26x2.35&quot; (60x559)</b></div>
+          <div><span>Uchytenie gyro</span><b>bolt-on (included)</b></div>
+        </div>
       </div>
 
       <form class="config-controls" id="config-form">
