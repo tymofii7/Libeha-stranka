@@ -111,7 +111,8 @@ const productDetails = {
 
 const productName = document.querySelector("#product-name");
 if (productName) {
-  const selectedProduct = productDetails[new URLSearchParams(window.location.search).get("model")] || productDetails.rider;
+  const model = new URLSearchParams(window.location.search).get("model");
+  const selectedProduct = productDetails[model] || productDetails.rider;
   const detailImage = document.querySelector("#detail-image");
   const detailImageWrap = document.querySelector("#detail-image-wrap");
   const galleryThumbnails = document.querySelector("#gallery-thumbnails");
@@ -120,6 +121,7 @@ if (productName) {
   const cartAddButton = document.querySelector(".detail-add");
   const currency = new Intl.NumberFormat("sk-SK");
 
+  detailImageWrap.classList.toggle("is-pro", model === "pro");
   productName.textContent = selectedProduct.name;
   document.querySelector("#breadcrumb-product").textContent = selectedProduct.name;
   document.title = `${selectedProduct.name} — Tdj`;
