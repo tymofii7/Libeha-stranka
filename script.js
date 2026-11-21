@@ -69,6 +69,8 @@ const productDetails = {
     name: 'Rider 26" DJ Frame',
     price: 999,
     image: "docs/Rider 26 DJ Frame.png",
+    secondImage: "img/26.jpg",
+    secondImageAlt: "Rider 26 DJ Frame — druhý pohľad",
     description: "Agilný rám pre dirt jump a každodenné jazdenie. Ľahký, pevný a pripravený na veľké skoky aj každodenné tréningy.",
     type: "Dirt jump",
     wheels: '26"',
@@ -78,6 +80,8 @@ const productDetails = {
     name: 'Urban 24" Street Frame',
     price: 1099,
     image: "docs/urban.png",
+    secondImage: "img/24right.png",
+    secondImageAlt: "Urban 24 Street Frame — druhý pohľad",
     description: "Kompaktný streetový rám pre hravú jazdu v meste. Nízke ťažisko a pevná konštrukcia pre technické triky.",
     type: "Street",
     wheels: '24"',
@@ -96,6 +100,8 @@ const productDetails = {
     name: 'Pro 26" Slopestyle Frame',
     price: 1250,
     image: "docs/pro.png",
+    secondImage: "img/proright.png",
+    secondImageAlt: "Pro 26 Slopestyle Frame — druhý pohľad",
     description: "Pevná a vyvážená platforma na veľké skoky. Navrhnutá pre jazdcov, ktorí chcú istotu pri slopestyle jazde.",
     type: "Slopestyle",
     wheels: '26"',
@@ -108,6 +114,7 @@ if (productName) {
   const selectedProduct = productDetails[new URLSearchParams(window.location.search).get("model")] || productDetails.rider;
   const detailImage = document.querySelector("#detail-image");
   const detailImageWrap = document.querySelector("#detail-image-wrap");
+  const galleryThumbnails = document.querySelector("#gallery-thumbnails");
   const productPrice = document.querySelector("#product-price");
   const productDescription = document.querySelector("#product-description");
   const cartAddButton = document.querySelector(".detail-add");
@@ -118,6 +125,35 @@ if (productName) {
   document.title = `${selectedProduct.name} — Tdj`;
   detailImage.src = selectedProduct.image;
   detailImage.alt = `${selectedProduct.name} — titánový rám`;
+  const productImages = [
+    { src: selectedProduct.image, alt: detailImage.alt },
+    ...(selectedProduct.secondImage
+      ? [{ src: selectedProduct.secondImage, alt: selectedProduct.secondImageAlt }]
+      : []),
+  ];
+  galleryThumbnails.hidden = productImages.length < 2;
+  productImages.forEach((image, index) => {
+    const thumbnail = document.createElement("button");
+    thumbnail.className = `gallery-thumb${index === 0 ? " is-selected" : ""}`;
+    thumbnail.type = "button";
+    thumbnail.setAttribute("aria-label", `Zobraziť fotografiu ${index + 1}: ${image.alt}`);
+    thumbnail.setAttribute("aria-pressed", String(index === 0));
+
+    const thumbnailImage = document.createElement("img");
+    thumbnailImage.src = image.src;
+    thumbnailImage.alt = "";
+    thumbnail.append(thumbnailImage);
+    thumbnail.addEventListener("click", () => {
+      const currentThumbnail = galleryThumbnails.querySelector(".gallery-thumb.is-selected");
+      currentThumbnail?.classList.remove("is-selected");
+      currentThumbnail?.setAttribute("aria-pressed", "false");
+      thumbnail.classList.add("is-selected");
+      thumbnail.setAttribute("aria-pressed", "true");
+      detailImage.src = image.src;
+      detailImage.alt = image.alt;
+    });
+    galleryThumbnails.append(thumbnail);
+  });
   productDescription.textContent = selectedProduct.description;
   document.querySelector("#product-specs div:nth-child(2) b").textContent = selectedProduct.type;
   document.querySelector("#product-specs div:nth-child(3) b").textContent = selectedProduct.wheels;
@@ -139,15 +175,6 @@ if (productName) {
     cartAddButton.dataset.product = `${selectedProduct.name} · ${document.querySelector(".size-options .is-selected").dataset.size} · ${selectedFinish.dataset.finish}`;
     detailImageWrap.classList.toggle("is-dark-finish", finishExtra > 0);
   };
-
-  document.querySelectorAll(".gallery-thumb").forEach((thumbnail) => {
-    thumbnail.addEventListener("click", () => {
-      document.querySelector(".gallery-thumb.is-selected").classList.remove("is-selected");
-      thumbnail.classList.add("is-selected");
-      detailImage.src = thumbnail.dataset.image;
-      detailImage.alt = thumbnail.dataset.alt;
-    });
-  });
 
   document.querySelectorAll(".size-options button").forEach((button) => {
     button.addEventListener("click", () => {
@@ -185,11 +212,6 @@ if (productName) {
     updateProductPrice();
   });
 
-  const thumbnails = document.querySelectorAll(".gallery-thumb");
-  if (selectedProduct.name !== productDetails.rider.name) {
-    thumbnails[1].hidden = true;
-    thumbnails[0].querySelector("img").src = selectedProduct.image;
-  }
   updateProductPrice();
 }
 
