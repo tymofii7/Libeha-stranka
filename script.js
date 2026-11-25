@@ -70,7 +70,7 @@ const productDetails = {
     price: 999,
     image: "docs/Rider 26 DJ Frame.png",
     secondImage: "img/26.jpg",
-    secondImageAlt: "Rider 26 DJ Frame — druhý pohľad",
+    secondImageAlt: "Druhý produktový pohľad na titánový rám Rider 26 DJ",
     description: "Agilný rám pre dirt jump a každodenné jazdenie. Ľahký, pevný a pripravený na veľké skoky aj každodenné tréningy.",
     type: "Dirt jump",
     wheels: '26"',
@@ -81,7 +81,7 @@ const productDetails = {
     price: 1099,
     image: "docs/urban.png",
     secondImage: "img/24right.png",
-    secondImageAlt: "Urban 24 Street Frame — druhý pohľad",
+    secondImageAlt: "Druhý produktový pohľad na titánový rám Urban 24 Street",
     description: "Kompaktný streetový rám pre hravú jazdu v meste. Nízke ťažisko a pevná konštrukcia pre technické triky.",
     type: "Street",
     wheels: '24"',
@@ -101,7 +101,7 @@ const productDetails = {
     price: 1250,
     image: "docs/pro.png",
     secondImage: "img/proright.png",
-    secondImageAlt: "Pro 26 Slopestyle Frame — druhý pohľad",
+    secondImageAlt: "Druhý produktový pohľad na titánový rám Pro 26 Slopestyle",
     description: "Pevná a vyvážená platforma na veľké skoky. Navrhnutá pre jazdcov, ktorí chcú istotu pri slopestyle jazde.",
     type: "Slopestyle",
     wheels: '26"',
@@ -128,7 +128,7 @@ if (productName) {
   document.querySelector("#breadcrumb-product").textContent = selectedProduct.name;
   document.title = `${selectedProduct.name} — Tdj`;
   detailImage.src = selectedProduct.image;
-  detailImage.alt = `${selectedProduct.name} — titánový rám`;
+  detailImage.alt = `Produktová fotografia titánového rámu ${selectedProduct.name}`;
   const productImages = [
     { src: selectedProduct.image, alt: detailImage.alt },
     ...(selectedProduct.secondImage
