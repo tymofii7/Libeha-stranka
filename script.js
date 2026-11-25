@@ -122,6 +122,8 @@ if (productName) {
   const currency = new Intl.NumberFormat("sk-SK");
 
   detailImageWrap.classList.toggle("is-pro", model === "pro");
+  detailImageWrap.classList.toggle("is-urban", model === "urban");
+  detailImageWrap.classList.toggle("is-custom", model === "custom");
   productName.textContent = selectedProduct.name;
   document.querySelector("#breadcrumb-product").textContent = selectedProduct.name;
   document.title = `${selectedProduct.name} — Tdj`;
@@ -153,6 +155,8 @@ if (productName) {
       thumbnail.setAttribute("aria-pressed", "true");
       detailImage.src = image.src;
       detailImage.alt = image.alt;
+      detailImageWrap.classList.toggle("is-zoomed", model === "urban" && index === 1);
+      detailImageWrap.classList.toggle("is-pro-second", model === "pro" && index === 1);
     });
     galleryThumbnails.append(thumbnail);
   });
